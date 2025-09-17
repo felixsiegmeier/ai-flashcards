@@ -1,0 +1,8 @@
+# Ignoriere die Konfigurationsdatei
+config.py
+
+# Ignoriere virtuelle Umgebungen
+.venv/
+
+# Ignoriere Cache-Dateien
+__pycache__/
