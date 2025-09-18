@@ -13,3 +13,6 @@ class User(Base):
     created_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
 
     settings = relationship("UserSettings", back_populates="user")
+    decks = relationship("Deck", back_populates="user")
+    reviews = relationship("Review", back_populates="user")
+    state = relationship("FlashcardState", back_populates="user")

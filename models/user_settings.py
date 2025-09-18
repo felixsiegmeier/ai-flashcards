@@ -1,4 +1,4 @@
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 from ..db import Base
 from sqlalchemy import (
     Column,
