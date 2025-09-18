@@ -16,5 +16,5 @@ class Flashcard():
 
     deck = relationship("Deck", back_populates="flashcards")
     medias = relationship("FlashcardMedia", back_populates="flashcard")
-    review = relationship("Review", back_populates="flashcard")
+    reviews = relationship("Review", back_populates="flashcard")
     state = relationship("FlashcardState", back_populates="flashcard")
