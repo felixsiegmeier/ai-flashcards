@@ -1,9 +1,10 @@
 from ..db import Base
+from .tag import flashcard_tags
 from sqlalchemy.orm import relationship
 from sqlalchemy import Integer, TIMESTAMP, Boolean, Column, ForeignKey, Text
 from sqlalchemy.sql import func
 
-class Flashcard():
+class Flashcard(Base):
     __tablename__ = "flashcards"
     id = Column(Integer, nullable=False, primary_key=True)
     deck_id = Column(Integer, ForeignKey("decks.id"), nullable=False)
@@ -18,3 +19,9 @@ class Flashcard():
     medias = relationship("FlashcardMedia", back_populates="flashcard")
     reviews = relationship("Review", back_populates="flashcard")
     state = relationship("FlashcardState", back_populates="flashcard")
+    tags = relationship(
+        "Tag",
+        secondary=flashcard_tags,
+        back_populates="flashcards",
+        lazy="selectin",
+    )
