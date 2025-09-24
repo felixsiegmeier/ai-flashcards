@@ -2,14 +2,19 @@
 from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from models import User
 
 def create_user(db: Session, *, username: str, email: str, hashed_password: str) -> User:
     user = User(username=username, email=email, hashed_password=hashed_password)
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    return user
+    try:
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        return user
+    except SQLAlchemyError:
+        db.rollback()
+        raise
 
 def get_user(db: Session, user_id: int) -> Optional[User]:
     return db.get(User, user_id)
@@ -25,14 +30,22 @@ def update_user(db: Session, user_id: int, *, username: Optional[str] = None, em
         user.username = username
     if email is not None:
         user.email = email
-    db.commit()
-    db.refresh(user)
-    return user
+    try:
+        db.commit()
+        db.refresh(user)
+        return user
+    except SQLAlchemyError:
+        db.rollback()
+        raise
 
 def delete_user(db: Session, user_id: int) -> bool:
     user = db.get(User, user_id)
     if not user:
         return False
-    db.delete(user)
-    db.commit()
-    return True
+    try:
+        db.delete(user)
+        db.commit()
+        return True
+    except SQLAlchemyError:
+        db.rollback()
+        raise
