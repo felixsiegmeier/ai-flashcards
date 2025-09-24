@@ -2,7 +2,7 @@
 from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from ..models.user import User
+from models import User
 
 def create_user(db: Session, *, username: str, email: str, hashed_password: str) -> User:
     user = User(username=username, email=email, hashed_password=hashed_password)
