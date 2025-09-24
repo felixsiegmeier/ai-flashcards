@@ -1,16 +1,21 @@
-import sqlite3
+# test.py
+from sqlalchemy import event
+from db import Base, engine, SessionLocal
+from models import User, Deck
+from crud import create_user
 
-con = sqlite3.connect("flashcards.db")
-cur = con.cursor()
-cur.execute("CREATE TABLE flashcards(_id, question, answer, difficulty, lastvisit)")
+# SQLite: Foreign Keys einschalten
+@event.listens_for(engine, "connect")
+def _fk_pragma(dbapi_conn, conn_record):
+    cur = dbapi_conn.cursor()
+    cur.execute("PRAGMA foreign_keys=ON")
+    cur.close()
 
 def main():
-    print("Hello from ai-flashcard!")
-
-# Base.metadata.create_all(engine)
-## wird später benutzt, um die Modelle in die DB zu schreiben 
-## (diese dafür hier einmal importieren => können danach 
-## wieder gelöscht werden; geht nur um die DB-Initiation)
+    Base.metadata.create_all(engine)
+    with SessionLocal() as db:
+        user = create_user(db=db, username="Felix", email="felixMail", hashed_password="12345")
+        print(user.id, user.username, user.email)
 
 if __name__ == "__main__":
     main()

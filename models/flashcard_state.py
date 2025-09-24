@@ -5,7 +5,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import relationship
-from ..db import Base  # deine declarative Base
+from db import Base  # deine declarative Base
 
 class FlashcardState(Base):
     __tablename__ = "flashcard_states"

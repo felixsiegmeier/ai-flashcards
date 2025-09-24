@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer, Table, ForeignKey
 from sqlalchemy.orm import relationship
-from ..db import Base
+from db import Base
 
 flashcard_tags = Table(
     "flashcard_tags",

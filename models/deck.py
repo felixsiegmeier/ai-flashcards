@@ -1,9 +1,9 @@
-from ..db import Base
+from db import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Integer, String, TIMESTAMP, Boolean, Column, ForeignKey, Text
 from sqlalchemy.sql import func
 
-class Deck():
+class Deck(Base):
     __tablename__ = "decks"
     id = Column(Integer, nullable=False, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)

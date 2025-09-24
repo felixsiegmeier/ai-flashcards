@@ -1,4 +1,4 @@
-from ..db import Base
+from db import Base
 from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
@@ -15,4 +15,4 @@ class User(Base):
     settings = relationship("UserSettings", back_populates="user")
     decks = relationship("Deck", back_populates="user")
     reviews = relationship("Review", back_populates="user")
-    state = relationship("FlashcardState", back_populates="user")
+    flashcard_states = relationship("FlashcardState", back_populates="user")

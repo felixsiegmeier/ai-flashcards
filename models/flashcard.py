@@ -1,4 +1,4 @@
-from ..db import Base
+from db import Base
 from .tag import flashcard_tags
 from sqlalchemy.orm import relationship
 from sqlalchemy import Integer, TIMESTAMP, Boolean, Column, ForeignKey, Text
@@ -18,7 +18,7 @@ class Flashcard(Base):
     deck = relationship("Deck", back_populates="flashcards")
     medias = relationship("FlashcardMedia", back_populates="flashcard")
     reviews = relationship("Review", back_populates="flashcard")
-    state = relationship("FlashcardState", back_populates="flashcard")
+    states = relationship("FlashcardState", back_populates="flashcard")
     tags = relationship(
         "Tag",
         secondary=flashcard_tags,
