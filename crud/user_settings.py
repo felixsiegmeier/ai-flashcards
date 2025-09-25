@@ -36,7 +36,7 @@ def create_user_settings(
 def get_user_settings(db: Session, *, user_id: int) -> Optional[UserSettings]:
     return db.get(UserSettings, user_id)
 
-def change_user_settings(
+def update_user_settings(
         db: Session,
         *,
         user_id: int,
